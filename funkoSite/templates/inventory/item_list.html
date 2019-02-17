@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %}Item List{% endblock %}
+{% block content %}
+    <div class="row">
+        {% include 'inventory/item_list_template.html' with item_list=item_list %}
+    </div>
+{% endblock %}
+

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %}System Tailoring{% endblock %}
+{% block content %}
+    <div class="list-group">
+        <a href="{% url 'inventory:create_category' %}" class="list-group-item list-group-item-action">Create Category</a>        
+        <a href="{% url 'inventory:system_tailoring_category_list' %}" class="list-group-item list-group-item-action">Update Category</a> 
+    </div>
+{% endblock %}

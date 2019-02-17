@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %}Category Form{% endblock %}
+{% block content %}
+    <!-- when uploading files add enctype="multipart/form-data" -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-primary" value="Submit">
+        <input type="button" class= "btn btn-primary" value="Cancel" onclick="history.back()">
+    </form>
+{% endblock %}

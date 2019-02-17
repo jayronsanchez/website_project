@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %}Category List{% endblock %}
+{% block content %}
+    <div class="row">
+        {% for category in category_list %}  
+            <!-- should i also add list of inventory if i want to update items under this category? -->            
+            {% url 'inventory:update_category' pk=category.pk as url_update_category %}     
+            {% url 'inventory:delete_category' pk=category.pk as url_delete_category %}                 
+            {% include 'inventory/category_card.html' with image=category.category_image.url title=category.category_name update_button_name="Update" delete_button_name="Delete" update_path=url_update_category delete_path=url_delete_category %}
+        {% empty %}
+            <h1>List is Empty!</h1>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %}Category List{% endblock %}
+{% block content %}
+    <div class="row">
+        {% for category in category_list %}  
+            {% url 'inventory:detail_category' pk=category.pk as my_url %}
+            {% include 'inventory/category_card.html' with image=category.category_image.url title=category.category_name button_name="List" path=my_url %}
+        {% empty %}
+            <h1>List is Empty!</h1>
+        {% endfor %}
+    </div>
+{% endblock %}
+
