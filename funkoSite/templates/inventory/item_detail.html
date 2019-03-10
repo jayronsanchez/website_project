@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %}Item Details{% endblock %}
+{% block content %}
+    <div class="row">
+        <ul>list of username dibs
+        {% for dibs in item.item_user_dibs.all %}
+            <li>{{dibs.username}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

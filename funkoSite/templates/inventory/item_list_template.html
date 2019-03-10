@@ -1,6 +1,7 @@
 <div class="row">
     {% for item in item_list %}
-        {% include 'inventory/item_card.html' with image=item.item_image.url title=item.item_name amount=item.item_price condition=item.item_condition text=item.item_description button_name="Buy" %}
+        {% url 'inventory:item_dibs' pk=item.pk as my_path %}
+        {% include 'inventory/item_card.html' with image=item.item_image.url title=item.item_name amount=item.item_price condition=item.item_condition text=item.item_description button_name="Dibs!" path=my_path %}
     {% empty %}
         <h1>List is Empty!</h1>
     {% endfor %}

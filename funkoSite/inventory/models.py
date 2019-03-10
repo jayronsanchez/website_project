@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Category(models.Model):
     category_name = models.CharField(max_length=256)
@@ -34,8 +37,21 @@ class Item(models.Model):
     item_category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)
     item_condition = models.PositiveSmallIntegerField(choices=BOX_CONDITION)
 
+    # item can be 'dibs' by multiple users. Users can dibs multiple items
+    item_user_dibs = models.ManyToManyField(User, through='UserDibs')
+
     def get_absolute_url(self):
         return reverse('system_tailoring')
 
     def __str__(self):
         return self.item_name
+
+class UserDibs(models.Model):
+    item = models.ForeignKey(Item, related_name='item', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user_dibs', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        unique_together = ('item', 'user')
