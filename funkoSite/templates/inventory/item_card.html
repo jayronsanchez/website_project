@@ -6,15 +6,18 @@
         <h6 class="card-subtitle mb-2 text-muted"> Item condition: {{condition}}</h6>
         <p class="card-text">{{text}}</p>
         <!-- for item menu -->
-        {% if button_name|length > 0 %}
+        <!-- {% if button_name|length > 0 %}
         <a href="{{path}}" class="btn btn-primary">{{button_name}}</a>
-        {% endif %}
+        {% endif %} -->
         <!-- for system tailoring -->
         {% if update_button_name|length > 0 %}
             <a href="{{update_path}}" class="btn btn-primary">{{update_button_name}}</a>
         {% endif %}
         {% if delete_button_name|length > 0 %}
             <a href="{{delete_path}}" class="btn btn-primary">{{delete_button_name}}</a>
+        {% endif %}
+        {% if view_button_name|length > 0 %}
+            <a href="{{view_path}}" class="btn btn-primary">{{view_button_name}}</a>
         {% endif %}
     </div>
 </div>
