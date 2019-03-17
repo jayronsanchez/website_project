@@ -81,7 +81,7 @@ class ItemUndibs(LoginRequiredMixin, RedirectView):
         return super().get(request, *args, **kwargs)
 
 class SystemTailoringCategory(TemplateView):
-    template_name = 'system_tailoring\system_tailoring_category.html'
+    template_name = 'system_tailoring/system_tailoring_category.html'
 
 class SystemTailoringItem(TemplateView):
-    template_name = 'system_tailoring\system_tailoring_item.html'
+    template_name = 'system_tailoring/system_tailoring_item.html'

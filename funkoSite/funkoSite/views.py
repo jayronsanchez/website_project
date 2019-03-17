@@ -11,7 +11,7 @@ class IndexView(TemplateView):
     template_name = 'home.html'
 
 class SystemTailoring(TemplateView):
-    template_name = 'system_tailoring\system_tailoring.html'
+    template_name = 'system_tailoring/system_tailoring.html'
 
 class WelcomeAdminView(TemplateView):
     template_name = 'welcome_user.html'
