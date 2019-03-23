@@ -10,7 +10,7 @@
             <p>{{item.item_price}}</p>
             <p class="mb-0">Item condition: {{item.item_condition}}</p>
             <ul>List of users:
-                {% for dibs in item.item_user_dibs.all %}
+                {% for dibs in user_list %}
                     <li>{{dibs.username}}</li>
                 {% endfor %}
             </ul>

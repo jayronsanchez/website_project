@@ -46,6 +46,23 @@ class ItemListView(ListView):
 
 class ItemDetailView(DetailView):
     model = models.Item
+    list_users = []
+
+    def get_context_data(self, **kwargs):
+        try:
+            self.dibs_user = models.UserDibs.objects.select_related('user').filter(item__id__iexact=self.kwargs.get('pk'))
+        except models.UserDibs.DoesNotExist:
+            messages.error(self.request, 'Users not found!')
+        context = super().get_context_data(**kwargs)
+        # clear the list first!
+        self.list_users = [] 
+        # collect users by order of entry in the UserDibs database
+        for user_dibs in self.dibs_user:
+            self.list_users.append(user_dibs.user)
+        context['user_list'] = self.list_users
+
+        return context
+
 
 class DibsListView(ListView):
     model = models.UserDibs
@@ -57,7 +74,7 @@ class DibsListView(ListView):
         try:
             self.dibs_user = models.UserDibs.objects.select_related('user').filter(user__username__iexact=self.kwargs.get('username'))
         except models.UserDibs.DoesNotExist:
-            messages.error(self.request, 'User not found!')
+            messages.error(self.request, 'Users not found!')
         else:
             return self.dibs_user
 
