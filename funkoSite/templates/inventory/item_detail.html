@@ -17,9 +17,9 @@
             <br>
             <br>
             {% if user.is_authenticated %}
-                {% if user not in item.item_user_dibs.all %}
+                {% if user not in item.item_user_dibs.all and item.item_user_dibs.all|length < 3 %}
                     <a href="{% url 'inventory:item_dibs' pk=item.pk %}" class="btn btn-primary">Dibs!</a>           
-                {% else %}
+                {% elif user in item.item_user_dibs.all %}
                     <a href="{% url 'inventory:item_undibs' pk=item.pk %}" class="btn btn-primary">Undibs :(</a>
                 {% endif %}
             {% endif %}
