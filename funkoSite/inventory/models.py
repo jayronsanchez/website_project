@@ -37,6 +37,9 @@ class Item(models.Model):
     item_category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)
     item_condition = models.PositiveSmallIntegerField(choices=BOX_CONDITION)
 
+    # item_count not applicable for now, but this can be used in the future!
+    # item_count = models.IntegerField()
+    
     # item can be 'dibs' by multiple users. Users can dibs multiple items
     item_user_dibs = models.ManyToManyField(User, through='UserDibs')
 

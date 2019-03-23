@@ -16,11 +16,13 @@
             </ul>
             <br>
             <br>
-            {% if user not in item.item_user_dibs.all %}
-                <a href="{% url 'inventory:item_dibs' pk=item.pk %}" class="btn btn-primary">Dibs!</a>           
-            {% else %}
-                <a href="{% url 'inventory:item_undibs' pk=item.pk %}" class="btn btn-primary">Undibs :(</a>
-            {% endif %}        
+            {% if user.is_authenticated %}
+                {% if user not in item.item_user_dibs.all %}
+                    <a href="{% url 'inventory:item_dibs' pk=item.pk %}" class="btn btn-primary">Dibs!</a>           
+                {% else %}
+                    <a href="{% url 'inventory:item_undibs' pk=item.pk %}" class="btn btn-primary">Undibs :(</a>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
     {% if messages %}       

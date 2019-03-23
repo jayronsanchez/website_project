@@ -47,6 +47,32 @@ class ItemListView(ListView):
 class ItemDetailView(DetailView):
     model = models.Item
 
+class DibsListView(ListView):
+    model = models.UserDibs
+    template_name = 'inventory/item_list.html'    
+
+    user_dibs_items = []
+
+    def get_queryset(self):
+        try:
+            self.dibs_user = models.UserDibs.objects.select_related('user').filter(user__username__iexact=self.kwargs.get('username'))
+        except models.UserDibs.DoesNotExist:
+            messages.error(self.request, 'User not found!')
+        else:
+            return self.dibs_user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # clear the list first!
+        self.user_dibs_items = [] 
+        # collect item per user
+        for user_dibs in self.dibs_user:
+            self.user_dibs_items.append(user_dibs.item)
+
+        context['item_list'] = self.user_dibs_items
+        return context
+
+
 class ItemDibs(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         return reverse('inventory:detail_item', kwargs={'pk':self.kwargs.get('pk')})
@@ -58,7 +84,7 @@ class ItemDibs(LoginRequiredMixin, RedirectView):
         except IntegrityError:
             messages.warning(self.request, 'Warning! Item already added.')
         else:
-            messages.success(self.request, 'Item Added!')
+            messages.success(self.request, 'Item added to your list!')
 
         return super().get(request, *args, **kwargs)
 
@@ -76,7 +102,7 @@ class ItemUndibs(LoginRequiredMixin, RedirectView):
             messages.warning(self.request, 'Item not in your list!')
         else:
             dibs.delete()
-            messages.success(self.request, 'Item removed!')
+            messages.success(self.request, 'Item removed from your list!')
 
         return super().get(request, *args, **kwargs)
 
