@@ -3,6 +3,6 @@
 {% block title %}Category Details{% endblock %}
 {% block content %}
     <div class="row"> 
-        {% include 'inventory/item_list_template.html' with item_list=category.items.all %}
+        {% include 'inventory/item/item_list_template.html' with item_list=category.items.all %}
     </div>
 {% endblock %}

@@ -13,41 +13,51 @@ from django.http import HttpResponseRedirect
 
 class CategoryCreateView(CreateView):
     model = models.Category
+    template_name = 'inventory/category/category_form.html'
     fields = ('category_name', 'category_image')
 
 class CategoryUpdateView(UpdateView):
     model = models.Category
+    template_name = 'inventory/category/category_form.html'
     fields = ('category_name', 'category_image')
 
 class CategoryDeleteView(DeleteView):
     model = models.Category
+    template_name = 'inventory/category/category_confirm_delete.html'
     success_url = reverse_lazy('inventory:system_tailoring_category_list')
 
 class CategoryListView(ListView):
     model = models.Category
+    template_name = 'inventory/category/category_list.html'
 
 class CategoryDetailView(DetailView):
     model = models.Category
+    template_name = 'inventory/category/category_detail.html'
 
 class ItemCreateView(CreateView):
     # default template name:item_form
     model = models.Item
+    template_name = 'inventory/item/item_form.html'
     fields = ('item_category', 'item_name', 'item_description', 'item_price', 'item_condition', 'item_image')
 
 class ItemUpdateView(UpdateView):
     model = models.Item
+    template_name = 'inventory/item/item_form.html'
     fields = ('item_category', 'item_name', 'item_description', 'item_price', 'item_condition', 'item_image')
 
 class ItemDeleteView(DeleteView):
     model = models.Item
+    template_name = 'inventory/item/item_confirm_delete.html'
     # if delete success, go back to the list.
     success_url = reverse_lazy('inventory:system_tailoring_item_list')
 
 class ItemListView(ListView):
     model = models.Item
+    template_name = 'inventory/item/item_list.html'
 
 class ItemDetailView(DetailView):
     model = models.Item
+    template_name = 'inventory/item/item_detail.html'
     list_users = []
 
     def get_context_data(self, **kwargs):
@@ -68,7 +78,7 @@ class ItemDetailView(DetailView):
 
 class DibsListView(ListView):
     model = models.UserDibs
-    template_name = 'inventory/item_list.html'    
+    template_name = 'inventory/item/item_list.html'    
 
     user_dibs_items = []
 

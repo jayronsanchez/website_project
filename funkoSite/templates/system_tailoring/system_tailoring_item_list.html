@@ -6,7 +6,7 @@
         {% for item in item_list %}
             {% url 'inventory:update_item' pk=item.pk as url_update_item %}
             {% url 'inventory:delete_item' pk=item.pk as url_delete_item %}
-            {% include 'inventory/item_card.html' with image=item.item_image.url title=item.item_name amount=item.item_price condition=item.item_condition text=item.item_description update_button_name="Update" delete_button_name="Delete" update_path=url_update_item delete_path=url_delete_item %}
+            {% include 'inventory/item/item_card.html' with image=item.item_image.url title=item.item_name amount=item.item_price condition=item.item_condition text=item.item_description update_button_name="Update" delete_button_name="Delete" update_path=url_update_item delete_path=url_delete_item %}
         {% empty %}
             <h1>List is Empty!</h1>
         {% endfor %}
