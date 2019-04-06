@@ -75,7 +75,6 @@ class ItemDetailView(DetailView):
 
         return context
 
-
 class DibsListView(ListView):
     model = models.UserDibs
     template_name = 'inventory/item/item_list.html'    
@@ -101,6 +100,10 @@ class DibsListView(ListView):
         context['item_list'] = self.user_dibs_items
         return context
 
+class DibsUpdateView(UpdateView):
+    model = models.UserDibs
+    template_name = 'inventory/item/item_dibs_form.html'
+    fields = ('user_receipt', 'user_instructions')
 
 class ItemDibs(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
@@ -141,15 +144,24 @@ class SystemTailoringCategory(TemplateView):
 class SystemTailoringItem(TemplateView):
     template_name = 'system_tailoring/system_tailoring_item.html'
 
-
-def upload_receipt(request, pk):
+def update_dibs(request, pk):
 
     """ FUNCTION BASED VIEW
-        This will allow the first dibs user to upload a receipt
+        This will allow the user to upload a receipt and add instructions
     """
-    if request.method == 'POST':   
+    if request.method == 'POST':
         user_dibs = models.UserDibs.objects.filter(user=request.user, item=pk).get()
-        user_dibs.user_receipt = request.FILES['fileToUpload']
-        user_dibs.save()  
+        return HttpResponseRedirect(reverse('inventory:item_dibs_update', kwargs={'username':request.user.username, 'pk': user_dibs.pk}))
+
+# save upload_receipt method for future reference when uploading files!
+# def upload_receipt(request, pk):
+
+#     """ FUNCTION BASED VIEW
+#         This will allow the first dibs user to upload a receipt
+#     """
+#     if request.method == 'POST':   
+#         user_dibs = models.UserDibs.objects.filter(user=request.user, item=pk).get()
+#         user_dibs.user_receipt = request.FILES['fileToUpload']
+#         user_dibs.save()  
         
-        return HttpResponseRedirect(reverse('inventory:detail_item', kwargs={'pk': pk}))
+#         return HttpResponseRedirect(reverse('inventory:detail_item', kwargs={'pk': pk}))

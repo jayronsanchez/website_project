@@ -3,3 +3,5 @@ inventory/__pycache__
 funkoSite/__pycache__
 users/__pycache__
 inventory/migrations/
+media/category/
+media/inventory

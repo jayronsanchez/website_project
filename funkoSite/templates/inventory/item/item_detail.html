@@ -21,21 +21,19 @@
                     <a href="{% url 'inventory:item_dibs' pk=item.pk %}" class="btn btn-primary">Dibs!</a>           
                 {% elif user in item.item_user_dibs.all %}
                     <a href="{% url 'inventory:item_undibs' pk=item.pk %}" class="btn btn-primary">Undibs :(</a>
-                {% endif %}
-                
-                <!-- This is just temporary. I might create a form for UserDibs instead. -->
+                {% endif %}  
                 {% if user == user_list|first %}
-                    <form action="{% url 'inventory:detail_item_upload_receipt' pk=item.pk %}" method="post" enctype="multipart/form-data">
+                    <form action="{% url 'inventory:item_dibs_update_redirect' pk=item.pk %}" method="POST">
                         {% csrf_token %}
-                        <input type="file" name="fileToUpload" id="fileToUpload">
-                        <input type="submit" value="Upload Receipt" name="submit">
-                    </form>
+                        <button class="btn btn-primary" type="submit">Form</button>
+                    </form>                    
                 {% endif %}
             {% endif %}
         </div>
     </div>
     {% if messages %}       
         {% for message in messages %}            
+            <!-- should i use modal from bootstrap here? hmmm -->
             <script>
                 alert('{{message}}');
             </script>

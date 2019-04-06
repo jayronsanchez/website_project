@@ -53,10 +53,13 @@ class UserDibs(models.Model):
     item = models.ForeignKey(Item, related_name='item', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='user_dibs', on_delete=models.CASCADE)
     user_receipt = models.ImageField(upload_to='inventory/images/receipts', null=True)
-    # user_instructions = models.TextField(null=True, blank=False)
+    user_instructions = models.TextField(null=True, blank=False)
 
     def __str__(self):
         return self.user.username
+
+    def get_absolute_url(self):
+        return reverse('inventory:detail_item', kwargs={'pk':self.item.pk})
 
     class Meta:
         unique_together = ('item', 'user')
