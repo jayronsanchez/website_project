@@ -8,6 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.db import IntegrityError
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 
 class CategoryCreateView(CreateView):
     model = models.Category
@@ -128,3 +130,16 @@ class SystemTailoringCategory(TemplateView):
 
 class SystemTailoringItem(TemplateView):
     template_name = 'system_tailoring/system_tailoring_item.html'
+
+
+def upload_receipt(request, pk):
+
+    """ FUNCTION BASED VIEW
+        This will allow the first dibs user to upload a receipt
+    """
+    if request.method == 'POST':   
+        user_dibs = models.UserDibs.objects.filter(user=request.user, item=pk).get()
+        user_dibs.user_receipt = request.FILES['fileToUpload']
+        user_dibs.save()  
+        
+        return HttpResponseRedirect(reverse('inventory:detail_item', kwargs={'pk': pk}))

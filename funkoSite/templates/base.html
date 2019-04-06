@@ -16,9 +16,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{% url 'inventory:list_category' %}">Categories</a>
                 </li>
                 <li class="nav-item">
@@ -34,6 +31,9 @@
                 </li>
                 {% if user.is_authenticated %}
                     {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                    </li>
                     <li>
                         <a class="nav-link" href="{% url 'system_tailoring' %}">System Tailoring</a>
                     </li>

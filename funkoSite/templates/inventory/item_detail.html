@@ -22,6 +22,15 @@
                 {% elif user in item.item_user_dibs.all %}
                     <a href="{% url 'inventory:item_undibs' pk=item.pk %}" class="btn btn-primary">Undibs :(</a>
                 {% endif %}
+                
+                <!-- This is just temporary. I might create a form for UserDibs instead. -->
+                {% if user == user_list|first %}
+                    <form action="{% url 'inventory:detail_item_upload_receipt' pk=item.pk %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                        <input type="submit" value="Upload Receipt" name="submit">
+                    </form>
+                {% endif %}
             {% endif %}
         </div>
     </div>

@@ -18,6 +18,7 @@ urlpatterns = [
     path('list_category/<int:pk>/', views.CategoryDetailView.as_view(), name='detail_category'),
     path('list_item/', views.ItemListView.as_view(), name='list_item'),
     path('list_item/<int:pk>', views.ItemDetailView.as_view(), name='detail_item'),
+    path('list_item/<int:pk>/upload_receipt', views.upload_receipt, name='detail_item_upload_receipt'),
     path('list_item/dibs/<int:pk>', views.ItemDibs.as_view(), name='item_dibs'),
     path('list_item/undibs/<int:pk>', views.ItemUndibs.as_view(), name='item_undibs'),
     path('my_items/<username>', views.DibsListView.as_view(), name='item_dibs_list'), 
