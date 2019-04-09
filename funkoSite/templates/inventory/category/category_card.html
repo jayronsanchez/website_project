@@ -1,18 +1,14 @@
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 15rem; height:22rem;">
     <img src="{{image}}" class="card-img-top" alt="..." height="200px" width="200px">
     <div class="card-body">
-        <h5 class="card-title">{{title}}</h5>
-        <p class="card-text">{{text}}</p>
-        <!-- for category menu -->
-        {% if button_name|length > 0 %}
-            <a href="{{path}}" class="btn btn-primary">{{button_name}}</a>
-        {% endif %}
+        <h5 class="card-title category-card-title-size">{{title}}</h5>
+        <p class="card-text">{{text}}</p>       
         <!-- for system tailoring -->
-        {% if update_button_name|length > 0 %}
-            <a href="{{update_path}}" class="btn btn-primary">{{update_button_name}}</a>
-        {% endif %}
-        {% if delete_button_name|length > 0 %}
-            <a href="{{delete_path}}" class="btn btn-primary">{{delete_button_name}}</a>
+        {% if system_tailoring %}            
+            <a href="{% url 'inventory:update_category' pk=category.pk %}" class="btn btn-primary">Update</a>            
+            <a href="{% url 'inventory:delete_category' pk=category.pk %}" class="btn btn-primary">Delete</a>            
+        {% else %}            
+            <a href="{% url 'inventory:detail_category' pk=category.pk %}" class="btn btn-primary">List</a>            
         {% endif %}
     </div>
 </div>

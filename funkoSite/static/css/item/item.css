@@ -1,0 +1,23 @@
+.image-size {
+    float: center;
+    width: 400px;
+    height:400px;
+    margin: 0 30px 20px 0;
+
+    /* display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%; */
+    /* border: 3px solid red; */
+  }
+
+
+/* .item-card-size {
+    width: 18rem;
+    height:30rem;
+  } */
+
+.item-card-title-size {
+    width: 200px;
+    height:50px; 
+  }

@@ -3,7 +3,7 @@
 {% block title %}Item Details{% endblock %}
 {% block content %}    
     <div class="media">
-        <img src="{{item.item_image.url}}" class="align-self-center mr-3" alt="...">
+        <img src="{{item.item_image.url}}" class="image-size" alt="...">
         <div class="media-body">
             <h5 class="mt-0">{{item.item_name}}</h5>
             <p>{{item.item_description}}</p>
@@ -22,6 +22,8 @@
                 {% elif user in item.item_user_dibs.all %}
                     <a href="{% url 'inventory:item_undibs' pk=item.pk %}" class="btn btn-primary">Undibs :(</a>
                 {% endif %}  
+                <br>
+                <br>
                 {% if user == user_list|first %}
                     <form action="{% url 'inventory:item_dibs_update_redirect' pk=item.pk %}" method="POST">
                         {% csrf_token %}
