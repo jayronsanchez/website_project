@@ -21,7 +21,9 @@
                 {% if user not in item.item_user_dibs.all and item.item_user_dibs.all|length < 3 %}
                     <a href="{% url 'inventory:item_dibs' pk=item.pk %}" class="btn btn-primary">Dibs!</a>           
                 {% elif user in item.item_user_dibs.all %}
-                    <a href="{% url 'inventory:item_undibs' pk=item.pk %}" class="btn btn-primary">Undibs :(</a>
+                    <!-- Trigger/Open The Modal -->     
+                    {% url 'inventory:item_undibs' pk=item.pk as my_url %}
+                    {% include 'modal.html' with message="Are you sure you want to undibs the item?" button_name="Undibs" path=my_url %}                    
                 {% endif %}  
                 <br>
                 <br>
@@ -35,8 +37,7 @@
         </div>
     </div>
     {% if messages %}       
-        {% for message in messages %}            
-            <!-- should i use modal from bootstrap here? hmmm -->
+        {% for message in messages %}
             <script>
                 alert('{{message}}');
             </script>
