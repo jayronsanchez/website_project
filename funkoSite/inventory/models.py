@@ -35,11 +35,8 @@ class Item(models.Model):
     # models.ImageField(upload_to = '', default = 'pic_folder/None/no-img.jpg')
     item_image = models.ImageField(upload_to='inventory/images')
     item_category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)
-    item_condition = models.PositiveSmallIntegerField(choices=BOX_CONDITION)
-
-    # item_count not applicable for now, but this can be used in the future!
-    # item_count = models.IntegerField()
-    
+    item_condition = models.PositiveSmallIntegerField(choices=BOX_CONDITION)    
+    item_dibs_count = models.IntegerField(default=0)    
     # item can be 'dibs' by multiple users. Users can dibs multiple items
     item_user_dibs = models.ManyToManyField(User, through='UserDibs')
 

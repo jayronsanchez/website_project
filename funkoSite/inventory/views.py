@@ -111,12 +111,17 @@ class ItemDibs(LoginRequiredMixin, RedirectView):
 
     def get(self, request, *args, **kwargs):
         item = get_object_or_404(models.Item, pk=self.kwargs.get('pk'))
-        try:
-            models.UserDibs.objects.create(user=self.request.user, item=item)
-        except IntegrityError:
-            messages.warning(self.request, 'Warning! Item already added.')
+        if item.item_dibs_count < 3:
+            try:
+                models.UserDibs.objects.create(user=self.request.user, item=item)
+                item.item_dibs_count = item.item_dibs_count + 1
+                item.save()
+            except IntegrityError:
+                messages.warning(self.request, 'Warning! Item already added.')
+            else:
+                messages.success(self.request, 'Item added to your list!')
         else:
-            messages.success(self.request, 'Item added to your list!')
+            messages.error(self.request, 'Max dibs error message')
 
         return super().get(request, *args, **kwargs)
 
@@ -125,6 +130,7 @@ class ItemUndibs(LoginRequiredMixin, RedirectView):
         return reverse('inventory:detail_item', kwargs={'pk':self.kwargs.get('pk')})
 
     def get(self, request, *args, **kwargs):
+        item = get_object_or_404(models.Item, pk=self.kwargs.get('pk'))
         try:
             dibs = models.UserDibs.objects.filter(
                 user=self.request.user,
@@ -134,6 +140,8 @@ class ItemUndibs(LoginRequiredMixin, RedirectView):
             messages.warning(self.request, 'Item not in your list!')
         else:
             dibs.delete()
+            item.item_dibs_count = item.item_dibs_count - 1
+            item.save()
             messages.success(self.request, 'Item removed from your list!')
 
         return super().get(request, *args, **kwargs)
