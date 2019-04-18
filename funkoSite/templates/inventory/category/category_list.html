@@ -4,7 +4,7 @@
 {% block content %}
     <div class="row">        
         {% for category in category_list %}  
-        <div class="card-buffer">            
+        <div>            
             {% include 'inventory/category/category_card.html' with image=category.category_image.url title=category.category_name %}
         </div>    
         {% empty %}
