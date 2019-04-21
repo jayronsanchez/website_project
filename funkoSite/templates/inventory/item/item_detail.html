@@ -15,6 +15,7 @@
                     <li>{{dibs.username}}</li>
                 {% endfor %}
             </ul>
+            <p>Expiry Date: {{expiry_date}}</p>
             <br>
             <br>
             {% if user.is_authenticated %}
@@ -28,6 +29,7 @@
                 <br>
                 <br>
                 {% if user == user_list|first %}
+                    <p>You are the current first dibs!. Please complete the form.</p>
                     <form action="{% url 'inventory:item_dibs_update_redirect' pk=item.pk %}" method="POST">
                         {% csrf_token %}
                         <button class="btn btn-primary" type="submit">Form</button>

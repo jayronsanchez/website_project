@@ -6,11 +6,10 @@ User = get_user_model()
 
 class Category(models.Model):
     category_name = models.CharField(max_length=256)
-    category_image = models.ImageField(upload_to='category/images') 
-    
+    category_image = models.ImageField(upload_to='category/images')
+
     def get_absolute_url(self):
         return reverse('system_tailoring')
-
     def __str__(self):
         return self.category_name
 
@@ -35,14 +34,13 @@ class Item(models.Model):
     # models.ImageField(upload_to = '', default = 'pic_folder/None/no-img.jpg')
     item_image = models.ImageField(upload_to='inventory/images')
     item_category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)
-    item_condition = models.PositiveSmallIntegerField(choices=BOX_CONDITION)    
-    item_dibs_count = models.IntegerField(default=0)    
+    item_condition = models.PositiveSmallIntegerField(choices=BOX_CONDITION)
+    item_dibs_count = models.IntegerField(default=0)
     # item can be 'dibs' by multiple users. Users can dibs multiple items
     item_user_dibs = models.ManyToManyField(User, through='UserDibs')
 
     def get_absolute_url(self):
         return reverse('system_tailoring')
-
     def __str__(self):
         return self.item_name
 
@@ -51,10 +49,11 @@ class UserDibs(models.Model):
     user = models.ForeignKey(User, related_name='user_dibs', on_delete=models.CASCADE)
     user_receipt = models.ImageField(upload_to='inventory/images/receipts', null=True)
     user_instructions = models.TextField(null=True, blank=False)
+    user_dibs_expiry_date = models.DateTimeField(null=True)
+    is_user_first = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
-
     def get_absolute_url(self):
         return reverse('inventory:detail_item', kwargs={'pk':self.item.pk})
 

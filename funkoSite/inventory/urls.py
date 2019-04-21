@@ -26,5 +26,5 @@ urlpatterns = [
     # for user dibs
     path('my_items/<username>', views.DibsListView.as_view(), name='item_dibs_list'),     
     path('list_item/<int:pk>/form', views.update_dibs, name='item_dibs_update_redirect'),
-    path('my_items/<username>/item/<int:pk>', views.DibsUpdateView.as_view(), name='item_dibs_update'),    
+    path('my_items/<username>/item/<int:pk>', views.DibsUpdateView.as_view(), name='item_dibs_update'),
 ]
