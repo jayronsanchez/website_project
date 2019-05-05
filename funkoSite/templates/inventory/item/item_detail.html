@@ -15,7 +15,11 @@
                     <li>{{dibs.username}}</li>
                 {% endfor %}
             </ul>
-            <p>Expiry Date: {{expiry_date}}</p>
+            {% if expiry_date %}
+                <!-- Show item expiry date and countdown timer -->
+                <p>Expiry Date: {{expiry_date}}</p>
+                {% include 'countdown.html' with title="Item expiry date" date=expiry_date.isoformat %}
+            {% endif %}
             <br>
             <br>
             {% if user.is_authenticated %}
@@ -24,7 +28,7 @@
                 {% elif user in item.item_user_dibs.all %}
                     <!-- Trigger/Open The Modal -->     
                     {% url 'inventory:item_undibs' pk=item.pk as my_url %}
-                    {% include 'modal.html' with message="Are you sure you want to undibs the item?" button_name="Undibs" path=my_url %}                    
+                    {% include 'modal.html' with message="Are you sure you want to undibs the item?" button_name="Undibs" path=my_url %}
                 {% endif %}  
                 <br>
                 <br>
@@ -35,31 +39,7 @@
                         <button class="btn btn-primary" type="submit">Form</button>
                     </form>                    
                 {% endif %}
-            {% endif %}            
-            <h1>Countdown Clock</h1>
-            <div id="clockdiv">
-                <div>
-                    <span class="days"></span>
-                    <div class="smalltext">Days</div>
-                </div>
-                <div>
-                    <span class="hours"></span>
-                    <div class="smalltext">Hours</div>
-                </div>
-                <div>
-                    <span class="minutes"></span>
-                    <div class="smalltext">Minutes</div>
-                </div>
-                <div>
-                    <span class="seconds"></span>
-                    <div class="smalltext">Seconds</div>
-                </div>
-            </div>
-            <script>
-                // var deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
-                var deadline = new Date(Date.parse("{{expiry_date.isoformat}}"));
-                initializeClock('clockdiv', deadline);
-            </script>
+            {% endif %}
         </div>
     </div>
     {% if messages %}       
