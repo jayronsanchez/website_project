@@ -13,7 +13,7 @@ class IndexView(TemplateView):
 class SystemTailoring(TemplateView):
     template_name = 'system_tailoring/system_tailoring.html'
 
-class WelcomeAdminView(TemplateView):
+class WelcomeUserView(TemplateView):
     template_name = 'welcome_user.html'
 
 class ThanksView(TemplateView):

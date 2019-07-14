@@ -29,7 +29,7 @@ urlpatterns = [
     path('system_tailoring/', views.SystemTailoring.as_view(), name='system_tailoring'),
     path('about/', views.AboutView.as_view(), name='about'),
     # path('signup/', views.SignUp.as_view(), name='signup'),
-    path('welcome_admin/', views.WelcomeAdminView.as_view(), name='welcome_admin'),
+    path('welcome_user/', views.WelcomeUserView.as_view(), name='welcome_user'),
     path('thanks/', views.ThanksView.as_view(), name='thanks'),
 ]
 
