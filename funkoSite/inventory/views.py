@@ -4,7 +4,7 @@ from django.views.generic import (ListView, DetailView,
                                   CreateView, UpdateView,
                                   DeleteView, TemplateView,
                                   RedirectView)
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib import messages
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, get_list_or_404
@@ -12,17 +12,20 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 from inventory import models
 
-class CategoryCreateView(LoginRequiredMixin, CreateView):
+class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ('inventory.add_category') # permissions. format is <app_name>.<code_permission>
     model = models.Category
     template_name = 'inventory/category/category_form.html'
     fields = ('category_name', 'category_image')
 
-class CategoryUpdateView(LoginRequiredMixin, UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ('inventory.change_category')
     model = models.Category
     template_name = 'inventory/category/category_form.html'
     fields = ('category_name', 'category_image')
 
-class CategoryDeleteView(LoginRequiredMixin, DeleteView):
+class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ('inventory.delete_category')
     model = models.Category
     template_name = 'inventory/category/category_confirm_delete.html'
     success_url = reverse_lazy('inventory:system_tailoring_category_list')
@@ -35,18 +38,21 @@ class CategoryDetailView(DetailView):
     model = models.Category
     template_name = 'inventory/category/category_detail.html'
 
-class ItemCreateView(LoginRequiredMixin, CreateView):
+class ItemCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     # default template name:item_form
+    permission_required = ('inventory.add_item')
     model = models.Item
     template_name = 'inventory/item/item_form.html'
     fields = ('item_category', 'item_name', 'item_description', 'item_price', 'item_condition', 'item_image')
 
-class ItemUpdateView(LoginRequiredMixin, UpdateView):
+class ItemUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ('inventory.change_item')
     model = models.Item
     template_name = 'inventory/item/item_form.html'
     fields = ('item_category', 'item_name', 'item_description', 'item_price', 'item_condition', 'item_image')
 
-class ItemDeleteView(LoginRequiredMixin, DeleteView):
+class ItemDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ('inventory.delete_item')
     model = models.Item
     template_name = 'inventory/item/item_confirm_delete.html'
     # if delete success, go back to the list.

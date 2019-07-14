@@ -30,7 +30,7 @@
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'inventory:item_dibs_list' username=user.username%}">View My Items</a>
+                        <a class="nav-link" href="{% url 'inventory:item_dibs_list' username=user.username %}">View My Items</a>
                     </li>
                 {% endif %}              
                 <li class="nav-item">
